@@ -46,16 +46,13 @@ echo "Invalido!" ;;
 esac
 
 # Executa o benchmark e salva num arquivo o output
-./sim-cache -cache:il1 il1:$nsets:$blockSize:$assoc:$repl -cache:il2 none -cache:dl1 dl1:$nsets:$blockSize:$assoc:$repl -cache:dl2 none -tlb:itlb none -tlb:dtlb none $bench 2> ../benchData.txt
+./sim-cache -cache:il1 dl1  -cache:dl1 ul1:$nsets:$blockSize:$assoc:$repl -cache:il2 none -cache:dl2 none -tlb:itlb none -tlb:dtlb none $bench 2> ../benchData.txt
 
 grep "sim_num_insn" ../benchData.txt > ../benchOutput.txt
 grep "sim_num_refs" ../benchData.txt >> ../benchOutput.txt
-grep "il1.misses" ../benchData.txt >> ../benchOutput.txt
-grep "il1.miss_rate" ../benchData.txt >> ../benchOutput.txt
-grep "il1.replacements" ../benchData.txt >> ../benchOutput.txt
-grep "dl1.misses" ../benchData.txt >> ../benchOutput.txt
-grep "dl1.miss_rate" ../benchData.txt >> ../benchOutput.txt
-grep "dl1.replacements" ../benchData.txt >> ../benchOutput.txt
+grep "ul1.misses" ../benchData.txt >> ../benchOutput.txt
+grep "ul1.miss_rate" ../benchData.txt >> ../benchOutput.txt
+grep "ul1.replacements" ../benchData.txt >> ../benchOutput.txt
 
 
 echo -e "\nTam: $1 KB \nsets: $nsets \nblockSize: $blockSize B\nassociatividade: $assoc \npol. subs: $repl" >> ../benchOutput.txt
